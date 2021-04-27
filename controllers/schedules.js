@@ -9,15 +9,21 @@ module.exports = app => {
 
     })
 
+    app.get('/schedules/:id', (req, res) => {
+        const { id } = req.params
+
+        Schedules.findById(id, res)
+    })
+    
     app.post('/schedules', (req, res) => {
         const newAppointment = req.body
         Schedules.insert(newAppointment, res)
     })
 
-    app.get('/schedules/:id', (req, res) => {
+    app.patch('/schedules/:id', (req, res) => {
         const { id } = req.params
-
-        Schedules.findById(id, res)
+        const appointmentToChange = req.body
+        Schedules.update(id, appointmentToChange, res)
     })
 
 }

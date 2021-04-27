@@ -30,6 +30,16 @@ class Schedules {
             return error ? res.status(400).json(error) : res.status(200).json(result)
         })
     }
+
+    update(id, schedules, res){
+        
+        schedules.scheduled_for = moment(schedules.scheduled_for, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
+        
+        connect.query(`UPDATE schedules SET ? WHERE id = ? `, [schedules, id], (error, result) => {
+            return error ? res.status(400).json(error) : res.status(200).json(result)
+        })
+    }
+
 }
 
 module.exports = new Schedules

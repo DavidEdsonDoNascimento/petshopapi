@@ -40,6 +40,12 @@ class Schedules {
         })
     }
 
+    delete(id,res){
+        connect.query(`DELETE FROM schedules WHERE id = ?`, id, (error, result) => {
+            return error ? res.status(400).json(error) : res.status(200).json(result)
+        })
+    }
+
 }
 
 module.exports = new Schedules

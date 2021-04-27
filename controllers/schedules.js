@@ -26,4 +26,9 @@ module.exports = app => {
         Schedules.update(id, appointmentToChange, res)
     })
 
+    app.delete('/schedules/:id', (req, res) => {
+        const { id } = req.params
+
+        Schedules.delete(id, res)
+    })
 }

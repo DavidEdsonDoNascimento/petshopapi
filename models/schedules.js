@@ -21,7 +21,7 @@ class Schedules {
         }
 
         connect.query(`INSERT INTO schedules SET ?`, newAppointmentFormat, (error, result) => {
-            return error ? res.status(400).json(error) : res.status(200).json(result)
+            return error ? res.status(400).json(error) : res.status(200).json({id: result.insertId, message: `Novo agendamento para o cliente ${newAppointmentFormat.client} gravado com sucesso.`})
         })
     }
 
@@ -36,13 +36,13 @@ class Schedules {
         schedules.scheduled_for = moment(schedules.scheduled_for, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
         
         connect.query(`UPDATE schedules SET ? WHERE id = ? `, [schedules, id], (error, result) => {
-            return error ? res.status(400).json(error) : res.status(200).json(result)
+            return error ? res.status(400).json(error) : res.status(200).json({ message: `Agendamento de id: ${id} alterado com sucesso.` })
         })
     }
 
     delete(id,res){
         connect.query(`DELETE FROM schedules WHERE id = ?`, id, (error, result) => {
-            return error ? res.status(400).json(error) : res.status(200).json(result)
+            return error ? res.status(400).json(error) : res.status(200).json({ message: `Agendamento de id: ${id} deletado.` })
         })
     }
 

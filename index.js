@@ -1,6 +1,7 @@
 const customEspress = require('./config/customEspress')
 const Tables = require('./infra/Tables')
 const connect = require('./infra/connection')
+const config = require('config')
 
 connect.connect(error => {
     if(error) {
@@ -10,5 +11,5 @@ connect.connect(error => {
 
     const app = customEspress()
     Tables.init(connect)
-    app.listen(4000)
+    app.listen(config.get('api.port'))
 })
